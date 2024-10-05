@@ -2,11 +2,11 @@
 
 ## Class Information
 
-Class: TUM Computer Vision SS23
+***Master Lecture***: Computer Vision SS23 from TUM
 
-Group: 11
+***Group***: 11
 
-Members: Jincheng Pan, Wenjie Xie, Yao Ling, Kecheng Zhou, Shixin Li
+***Members***: Jincheng Pan, Wenjie Xie, Yao Ling, Kecheng Zhou, Shixin Li
 
 ## Principal of Algorithm
 
@@ -14,91 +14,89 @@ This software uses an incremental algorithm for multi-view 3D structure reconstr
 
 ## Pipeline
 
-Input: (images set, camera parameters)
+- Input: (images set, camera parameters)
 
-Process:
+- Loop for selecting two pictures with the most feature matching points.
 
-Loop for selecting two pictures with the most feature matching points.
+- Calculate the track (Tracks).
 
-Calculate the track (Tracks).
+- Calculate the connection graph G.
 
-Calculate the connection graph G.
+- Select the edge e in the connection graph G.
 
-Select the edge e in the connection graph G.
+- Robustly estimate the intrinsic matrix E.
 
-Robustly estimate the intrinsic matrix E.
+- Decompose E to obtain the pose (R, t).
 
-Decompose E to obtain the pose (R, t).
+- Triangulate the points in the intersection of the track and the edge, initialize.
 
-Triangulate the points in the intersection of the track and the edge, initialize.
+- For other edges (use PnP to get external parameters).
 
-For other edges (use PnP to get external parameters).
+- Triangulate new edges.
 
-Triangulate new edges.
+- Execute bundle adjustment.
 
-Execute bundle adjustment.
-
-Loop until all images are reconstructed.
+- Loop until all images are reconstructed.
 
 ## Toolbox Functions
 
-In Reconstruction
+## In Reconstruction
 
-rgb2gray: Convert RGB images to grayscale images.
+`rgb2gray`: Convert RGB images to grayscale images.
 
-detectSIFTFeatures: Use SIFT feature detector to extract feature points.
+### 1. DetectSIFTFeatures: Use SIFT feature detector to extract feature points.
 
-Input: image, specified as an M-by-N matrix.
+`Input`: image, specified as an M-by-N matrix.
 
-Output: SIFTPoints object.
+`Output`: SIFTPoints object.
 
-Arguments: Contrast threshold, Edge threshold, Number of layers in each octave.
+`Arguments`: Contrast threshold, Edge threshold, Number of layers in each octave.
 
-extractFeatures: Extracted feature vectors, also known as descriptors, and their corresponding locations from a binary or intensity image.
+### 2. ExtractFeatures: Extracted feature vectors, also known as descriptors, and their corresponding locations from a binary or intensity image.
 
-matchFeatures: Returns indices of the matching features in the two input feature sets.
+### 3. MatchFeatures: Returns indices of the matching features in the two input feature sets.
 
-Input: two binaryFeatures objects, an M1-by-N matrix, or as one of the point feature objects.
+`Input`: two binaryFeatures objects, an M1-by-N matrix, or as one of the point feature objects.
 
-Output: Indices of corresponding features between the two input feature sets.
+`Output`: Indices of corresponding features between the two input feature sets.
 
-addConnection, addView: Add views to view set and add connection between views in view set.
+`addConnection, addView`: Add views to view set and add connection between views in view set.
 
-adaptConnection, adaptView: Update view in view set and update connection between views in view set.
+`adaptConnection, adaptView`: Update view in view set and update connection between views in view set.
 
-findTracks: Find matched points across multiple views.
+### 4. FindTracks: Find matched points across multiple views.
 
-Input: Image view set, specified as an imageviewset object, View identifiers.
+`Input`: Image view set, specified as an imageviewset object, View identifiers.
 
-Output: Point tracks across multiple views.
+`Output`: Point tracks across multiple views.
 
-Argument: Minimum length of the tracks, specified as a positive integer equal to or greater than 2.
+`Argument`: Minimum length of the tracks, specified as a positive integer equal to or greater than 2.
 
-triangulateMultiview: Triangulation algorithm to compute the 3-D locations of world points.
+### 5. TriangulateMultiview: Triangulation algorithm to compute the 3-D locations of world points.
 
-Input: Matched points across multiple images, specified as an N-element array of pointTrack objects.
+`Input`: Matched points across multiple images, specified as an N-element array of pointTrack objects.
 
-Output: 3-D world points.
+`Output`: 3-D world points.
 
-estimateEssentialMatrix: Estimate essential matrix from corresponding points in a pair of images.
+### 6. EstimateEssentialMatrix: Estimate essential matrix from corresponding points in a pair of images.
 
-estworldpose: Use PnP to estimate camera pose from 3-D to 2-D point correspondences.
+### 7. Estworldpose: Use PnP to estimate camera pose from 3-D to 2-D point correspondences.
 
-bundleAdjustment: Adjust collection of 3-D points and camera poses to optimize the quality of reconstructed 3D points.
+### 8. BundleAdjustment: Adjust collection of 3-D points and camera poses to optimize the quality of reconstructed 3D points.
 
-Point Cloud Generation and Color Matching
+### 9. Point Cloud Generation and Color Matching
 
-pointCloud: Object for storing 3-D point cloud.
+`pointCloud`: Object for storing 3-D point cloud.
 
-Input: xyz-Points Location.
+`Input`: xyz-Points Location.
 
-Output: Returned as a pointCloud object.
+`Output`: Returned as a pointCloud object.
 
-Argument: 'Color' (Point cloud color), specified as an RGB value.
+`Argument`: 'Color' (Point cloud color), specified as an RGB value.
 
-pcshow: Plot 3-D point cloud.
+`pcshow`: Plot 3-D point cloud.
 
-pcdenoise: Remove noise from 3-D point cloud.
+`pcdenoise`: Remove noise from 3-D point cloud.
 
 ## GUI
 
