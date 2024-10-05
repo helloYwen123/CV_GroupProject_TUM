@@ -2,7 +2,7 @@
 
 ## Class Information
 
-***Master Lecture***: Computer Vision SS23 from TUM
+***Master Lecture***: Computer Vision SS23 @ TUM
 
 ***Group***: 11
 
