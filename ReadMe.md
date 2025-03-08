@@ -1,5 +1,7 @@
 # 3D Motion Reconstruction Using the Incremental Method
 
+![image of result](https://raw.githubusercontent.com/helloYwen123/CV_GroupProject_TUM/master/files/Selection_088.png)
+
 ## Class Information
 
 ***Master Lecture***: Computer Vision SS23 @ TUM
